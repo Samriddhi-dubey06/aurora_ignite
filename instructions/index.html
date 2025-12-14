@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Ignite - FR3 Robotic Arm Control Challenges</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 50px;
+            border-bottom: 4px solid #3498db;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .authors {
+            background: #ecf0f1;
+            padding: 30px 50px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .authors h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .authors p {
+            font-size: 1.05em;
+            color: #34495e;
+            margin: 8px 0;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 50px;
+            border: 1px solid #dee2e6;
+        }
+
+        .toc h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .toc ol {
+            margin-left: 25px;
+        }
+
+        .toc li {
+            margin: 12px 0;
+            font-size: 1.1em;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .challenge {
+            margin-bottom: 70px;
+            padding-bottom: 50px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .challenge:last-child {
+            border-bottom: none;
+        }
+
+        .challenge-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .challenge h2 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .challenge h3 {
+            color: #2c3e50;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+
+        .challenge h4 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .description {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+        }
+
+        .description p {
+            margin: 12px 0;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        .objectives {
+            background: #e8f4f8;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 5px solid #2980b9;
+        }
+
+        .objectives h3 {
+            color: #2980b9;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .objectives ul {
+            margin-left: 25px;
+        }
+
+        .objectives li {
+            margin: 10px 0;
+            font-size: 1.05em;
+        }
+
+        .tasks {
+            background: #fff9e6;
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #f39c12;
+            margin: 30px 0;
+        }
+
+        .tasks h3 {
+            color: #d68910;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+        }
+
+        .tasks h4 {
+            color: #a67c00;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .tasks ol {
+            margin-left: 25px;
+            counter-reset: task-counter;
+        }
+
+        .tasks ol > li {
+            margin: 25px 0;
+            font-size: 1.05em;
+            counter-increment: task-counter;
+            padding-left: 10px;
+        }
+
+        .tasks ol > li strong {
+            color: #d68910;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 0.95em;
+            line-height: 1.6;
+            border: 1px solid #333;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .hint {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            margin: 20px 0;
+        }
+
+        .hint strong {
+            color: #1976d2;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .hint p, .hint ul {
+            margin-top: 10px;
+        }
+
+        .hint ul {
+            margin-left: 25px;
+        }
+
+        .hint li {
+            margin: 8px 0;
+        }
+
+        .warning {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #e65100;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .file-path {
+            background: #e3f2fd;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            display: inline-block;
+            margin: 5px 0;
+            color: #1565c0;
+            font-size: 0.95em;
+            border: 1px solid #90caf9;
+        }
+
+        .reference-values {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4caf50;
+            margin: 25px 0;
+        }
+
+        .reference-values strong {
+            color: #2e7d32;
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .reference-values ul {
+            margin-left: 25px;
+        }
+
+        .reference-values li {
+            margin: 10px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+        }
+
+        .reference-values code {
+            background: #c8e6c9;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        ul {
+            margin-left: 25px;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        footer {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            text-align: center;
+            padding: 40px;
+        }
+
+        footer p {
+            margin: 8px 0;
+            font-size: 1.05em;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .difficulty.beginner {
+            background: #4caf50;
+            color: white;
+        }
+
+        .difficulty.intermediate {
+            background: #ff9800;
+            color: white;
+        }
+
+        .difficulty.advanced {
+            background: #f44336;
+            color: white;
+        }
+
+        .step-by-step {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+
+        .step-by-step h5 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .step-by-step ol {
+            margin-left: 25px;
+        }
+
+        .step-by-step li {
+            margin: 12px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .important-note {
+            background: #ffebee;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #f44336;
+            margin: 20px 0;
+        }
+
+        .important-note strong {
+            color: #c62828;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .copyable-code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .copyable-code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            padding-top: 45px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            font-size: 0.95em;
+            line-height: 1.6;
+            border: 1px solid #333;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            cursor: pointer;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .copy-button:hover {
+            background: #2980b9;
+        }
+
+        .copy-button:active {
+            background: #1f6fa6;
+        }
+
+        .copy-button.copied {
+            background: #27ae60;
+        }
+
+        .concept-box {
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 5px solid #1976d2;
+        }
+
+        .concept-box h4 {
+            color: #1565c0;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .concept-box p {
+            margin: 12px 0;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 80px;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+">
+
+    <!-- Left: Aurora Ignite -->
+    <div>
+        <h1 style="
+            margin: 0;
+            font-size: 2.6em;
+            color: #ffffff;
+            font-weight: 700;
+        ">
+            Aurora Ignite
+        </h1>
+
+        <!-- <p style="
+            margin: 6px 0 0;
+            font-size: 1.2em;
+            color: #ffffff;
+            opacity: 0.9;
+        ">
+            Comprehensive Manual -->
+        <!-- </p> -->
+    </div>
+
+    <!-- Right: AB6 Logo -->
+    <img 
+        src="instructions/AB6_logo.jpeg"
+        alt="AB6 Robotics Logo"
+        style="height: 80px; width: auto;"
+    >
+
+</header>
+
+
+        
+
+        <!-- Homepage -->
+        <div id="homepage" class="content" style="text-align: left; padding: 0.05px 25px;">
+            <!-- <div style="margin-bottom: 30px;">
+                <img 
+                    src="/home/samriddhi/Aurora_Ignite/instructions/AB6_logo.jpeg"
+                    alt="AB6 Robotics Logo"
+                    style="height: 120px; width: auto;"
+                >
+            </div> -->
+                        <h2 style="font-size: 2em; color: #2c3e50; margin-bottom: 20px;">FR3 Robotic Arm Control Challenges</h2>
+            <h3 style="font-size: 1.5em; color: #34495e; margin-bottom: 50px;">Comprehensive Manual</h3>
+
+            <!-- AB6 Robotics Logo Placeholder -->
+            <!-- <div style="margin: 40px 0;">
+                <p style="font-size: 2.5em; font-weight: bold; color: #1976d2;">AB6 ROBOTICS</p>
+            </div> -->
+
+
+    
+            <!-- Table of Contents -->
+            <div class="toc" style="max-width: 800px; margin: 60px auto; text-align: left;">
+                <h2 style="text-align: center; margin-bottom: 30px;">Table of Contents</h2>
+                <ol style="font-size: 1.2em; line-height: 2;">
+                    <li><a href="#challenge1" onclick="showChallenge('challenge1')">Challenge 1: Forward Kinematics (Beginner)</a></li>
+                    <li><a href="#challenge2" onclick="showChallenge('challenge2')">Challenge 2: Inverse Kinematics (Intermediate)</a></li>
+                    <li><a href="#challenge3" onclick="showChallenge('challenge3')">Challenge 3: Straight Line Trajectory (Intermediate)</a></li>
+                    <li><a href="#challenge4" onclick="showChallenge('challenge4')">Challenge 4: Circular Trajectory (Intermediate)</a></li>
+                    <li><a href="#challenge5" onclick="showChallenge('challenge5')">Challenge 5: Pick and Place Operation (Advanced)</a></li>
+                </ol>
+            </div>
+        </div>
+<!-- Authors -->
+<div style="
+    margin: 10px auto;
+    padding: 12px 20px;
+    max-width: 500px;
+    font-size: 1.2em;
+    color: #0f172a;
+    text-align: center;
+    background-color: #e3f2fd;
+    border: 1.5px solid #90caf9;
+    border-radius: 8px;
+">
+    <p style="margin: 4px 0; font-weight: bold;">Authors</p>
+    <p style="margin: 2px 0;">Samriddhi Dubey, MTech, IIT Gandhinagar</p>
+    <p style="margin: 2px 0;">Yash Kashiv, MTech, IIT Gandhinagar</p>
+</div>
+
+
+
+
+
+        <div class="content" id="challenges" style="display: none;">
+            <!-- Back to Home Button -->
+            <div style="margin-bottom: 30px;">
+                <button onclick="showHome()" style="background: #1976d2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;">← Back to Home</button>
+            </div>
+
+            <!-- Challenge 1: Forward Kinematics -->
+            <div class="challenge" id="challenge1">
+                <div class="challenge-header">
+                    <h2>Challenge 1: Forward Kinematics</h2>
+                    <span class="difficulty beginner">Beginner</span>
+                </div>
+
+                <div class="description">
+                    <p><strong>File Location:</strong> <span class="file-path">reference_solutions/forward_kinematics.py</span></p>
+                    <p><strong>Estimated Completion Time:</strong> 45-60 minutes</p>
+                </div>
+
+                <h3>What is Forward Kinematics?</h3>
+
+                <div class="concept-box">
+                    <h4>Fundamental Concept</h4>
+                    <p><strong>Forward kinematics</strong> is the process of determining where a robot's end-effector (gripper, tool, or hand) is located in space based on the angles of all its joints. Think of it like this: if you know how much each joint of the robot is bent or rotated, forward kinematics lets you calculate exactly where the tip of the robot arm ends up in 3D space.</p>
+
+                    <p>For example, imagine your own arm:</p>
+                    <ul>
+                        <li>Your shoulder has a certain angle</li>
+                        <li>Your elbow is bent at another angle</li>
+                        <li>Your wrist is rotated to some position</li>
+                    </ul>
+                    <p>Given these three angles, you can figure out exactly where your fingertip is in space. That's forward kinematics!</p>
+                </div>
+
+                <!-- <div class="concept-box">
+                    <h4>Joint Space vs Cartesian Space</h4>
+                    <p><strong>Joint Space Control:</strong> In this challenge, you'll control the robot by directly specifying the desired angle for each of its 7 joints. The FR3 robot is a 7-DOF (7 degree-of-freedom) manipulator, meaning it has 7 revolute joints that can rotate independently. When you specify 7 joint angles, the robot will move smoothly from its current configuration to reach that exact joint configuration.</p>
+
+                    <p><strong>Why is this useful?</strong> Joint space control is:</p>
+                    <ul>
+                        <li>Simple and direct - no complex calculations needed</li>
+                        <li>Guaranteed to be achievable (if angles are within limits)</li>
+                        <li>Predictable - the robot follows the same path every time</li>
+                        <li>Fundamental to understanding robot motion</li>
+                    </ul>
+                </div> -->
+
+                <div class="concept-box">
+                    <h4>ROS Communication Architecture</h4>
+                    <p>ROS (Robot Operating System) uses a <strong>publish-subscribe architecture</strong> for communication between different parts of the robot system. Think of it like a messaging system:</p>
+
+                    <p><strong>Topics:</strong> Named communication channels (like radio stations) that carry specific types of messages</p>
+
+                    <p><strong>Publishers:</strong> Components that send messages to topics (like radio broadcasters)</p>
+
+                    <p><strong>Subscribers:</strong> Components that listen to topics and receive messages (like radio receivers)</p>
+
+                    <p>In this challenge, your code will:</p>
+                    <ul>
+                        <li><strong>Publish</strong> velocity commands to tell the robot how fast each joint should move</li>
+                        <li><strong>Subscribe</strong> to joint state information to know the current position of each joint</li>
+                    </ul>
+                </div>
+
+                <h3>What Does the Code Do?</h3>
+                <p>The code moves the robot from its current joint configuration to a target configuration using a smooth quintic trajectory.</p>
+
+                <h3>Discovering ROS Topics</h3>
+                <p>Before you can complete the code, you need to discover which ROS topics are available for communication with the robot. Follow these steps:</p>
+
+                <div class="step-by-step">
+                    <h5>Step 1: List All Available Topics</h5>
+                    <p>Open a terminal and run the following command:</p>
+                    <div class="copyable-code-container">
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        <div class="copyable-code">rostopic list</div>
+                    </div>
+                    <!-- <p>This will display all active ROS topics. You should see output similar to this:</p> -->
+                </div>
+
+                <!-- <div class="copyable-code-container">
+                    <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    <div class="copyable-code">
+/clock
+/fr3/ee_pose
+/fr3/franka_gripper/gripper_action/cancel
+/fr3/franka_gripper/gripper_action/feedback
+/fr3/franka_gripper/gripper_action/goal
+/fr3/franka_gripper/gripper_action/result
+/fr3/franka_gripper/gripper_action/status
+/fr3/franka_gripper/grasp/cancel
+/fr3/franka_gripper/grasp/feedback
+/fr3/franka_gripper/grasp/goal
+/fr3/franka_gripper/grasp/result
+/fr3/franka_gripper/grasp/status
+/fr3/franka_gripper/homing/cancel
+/fr3/franka_gripper/homing/feedback
+/fr3/franka_gripper/homing/goal
+/fr3/franka_gripper/homing/result
+/fr3/franka_gripper/homing/status
+/fr3/franka_gripper/joint_states
+/fr3/franka_state_controller/F_ext
+/fr3/franka_state_controller/franka_states
+/fr3/joint_states
+/fr3/joint_velocity_controller/joint_velocity_command
+/gazebo/link_states
+/gazebo/model_states
+/gazebo/parameter_descriptions
+/gazebo/parameter_updates
+/gazebo/performance_metrics
+/gazebo/set_link_state
+/gazebo/set_model_state
+/rosout
+/rosout_agg
+/tf
+/tf_static
+                </div> -->
+
+                <div class="tasks">
+                    <h3>Tasks to Complete</h3>
+                    <ol>
+                        <li>
+                            <strong>Task 1: Fill in Joint Angles</strong>
+                            <p>Open <code>reference_solutions/forward_kinematics.py</code> and fill in the 7 joint angles (in radians) in the FR3_JOINTS array.</p>
+                        </li>
+
+                        <li>
+                            <strong>Task 2: Find ROS Topics</strong>
+                            <p>In the Python file, replace the two "TODO" strings with the correct ROS topic names you discovered from <code>rostopic list</code>:</p>
+                            <ul>
+                                <li>Publisher topic: for sending joint velocity commands</li>
+                                <li>Subscriber topic: for receiving joint states</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="reference-values">
+                    <strong>Reference Values:</strong>
+                    <ul>
+                        <li><strong>Publisher Topic:</strong> <code>/fr3/joint_velocity_controller/joint_velocity_command</code></li>
+                        <li><strong>Subscriber Topic:</strong> <code>/fr3/joint_states</code></li>
+                        <li><strong>Example Joint Configuration:</strong>
+                            <div class="code-block">FR3_JOINTS = np.array([
+    0.0015584473835553482,
+    -0.7841060606330866,
+    -0.0007111409103181678,
+    -2.357667109743753,
+    -0.0006936037327182386,
+    1.5735468349554234,
+    0.7782996616799904
+], dtype=float)</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Challenge 2: Inverse Kinematics -->
+            <div class="challenge" id="challenge2">
+                <div class="challenge-header">
+                    <h2>Challenge 2: Inverse Kinematics</h2>
+                    <span class="difficulty intermediate">Intermediate</span>
+                </div>
+
+                <div class="description">
+                    <p><strong>File Location:</strong> <span class="file-path">reference_solutions/inverse_kinematics.py</span></p>
+                    <p><strong>Estimated Completion Time:</strong> 60-90 minutes</p>
+                </div>
+
+                <h3>What is Inverse Kinematics?</h3>
+
+                <div class="concept-box">
+                    <h4>Fundamental Concept</h4>
+                    <p><strong>Inverse kinematics</strong> is the opposite of forward kinematics. Instead of calculating where the end-effector ends up given joint angles, inverse kinematics solves the reverse problem: given a desired position and orientation for the end-effector, what joint angles do we need?</p>
+
+                    <p>Think of it like this:</p>
+                    <ul>
+                        <li><strong>Forward Kinematics:</strong> "My joints are at these angles → where is my hand?"</li>
+                        <li><strong>Inverse Kinematics:</strong> "I want my hand here → what should my joint angles be?"</li>
+                    </ul>
+
+                    <p>This is more intuitive for many tasks. Instead of thinking "I need joint 3 at 45 degrees," you can say "I want the gripper to be at position (0.5, 0.2, 0.3)" and let the computer figure out the joint angles.</p>
+                </div>
+
+                <h3>What Does the Code Do?</h3>
+                <p>The code moves the robot's end-effector to a target position and orientation using DLS inverse kinematics.</p>
+
+                <div class="tasks">
+                    <h3>Tasks to Complete</h3>
+                    <ol>
+                        <li>
+                            <strong>Task 1: Fill in Target Position and Orientation</strong>
+                            <p>Open <code>reference_solutions/inverse_kinematics.py</code> and fill in:</p>
+                            <ul>
+                                <li><strong>x_target:</strong> 3D position [x, y, z] in meters</li>
+                                <li><strong>q_target:</strong> Quaternion orientation [qx, qy, qz, qw]</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <strong>Task 2: Find ROS Topics</strong>
+                            <p>Replace the three "TODO" strings with the correct ROS topic names from <code>rostopic list</code>:</p>
+                            <ul>
+                                <li>joint_state_topic: for reading joint positions</li>
+                                <li>ee_pose_topic: for reading end-effector pose</li>
+                                <li>velocity_command_topic: for sending velocity commands</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="reference-values">
+                    <strong>Reference Values:</strong>
+                    <ul>
+                        <li><strong>Example Target Position:</strong> <code>[0.45, 0.0, 0.45]</code></li>
+                        <li><strong>Example Target Quaternion:</strong> <code>[0.9983181956026925, 0.03432997348545016, 0.03850373764272704, 0.026451756777431213]</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Challenge 3: Straight Line Trajectory -->
+            <div class="challenge" id="challenge3">
+                <div class="challenge-header">
+                    <h2>Challenge 3: Straight Line Trajectory</h2>
+                    <span class="difficulty intermediate">Intermediate</span>
+                </div>
+
+                <div class="description">
+                    <p><strong>File Location:</strong> <span class="file-path">reference_solutions/trajectory_straight_line.py</span></p>
+                    <p><strong>Estimated Completion Time:</strong> 60-75 minutes</p>
+                </div>
+
+                <h3>What is a Straight Line Trajectory?</h3>
+
+                <div class="concept-box">
+                    <h4>Fundamental Concept</h4>
+                    <p>A <strong>straight line trajectory</strong> moves the robot's end-effector along a straight path in 3D space. You specify:</p>
+                    <ul>
+                        <li><strong>Direction:</strong> Which way to move (e.g., forward, left, up, or any diagonal)</li>
+                        <li><strong>Distance:</strong> How far to travel along that direction</li>
+                    </ul>
+                    <p>The robot starts from its current position and moves in a perfectly straight line until it reaches the specified distance, then stops automatically.</p>
+                </div>
+
+                <h3>What Does the Code Do?</h3>
+                <p>The code moves the robot's end-effector in a straight line from its current position along a specified direction for a specified distance.</p>
+
+                <div class="tasks">
+                    <h3>Tasks to Complete</h3>
+                    <ol>
+                        <li>
+                            <strong>Task 1: Fill in Line Parameters</strong>
+                            <p>Open <code>reference_solutions/trajectory_straight_line.py</code> and fill in:</p>
+                            <ul>
+                                <li><strong>direction:</strong> A 3D vector indicating the direction of motion (e.g., <code>np.array([0, -1, 0])</code>)</li>
+                                <li><strong>length:</strong> Distance to travel in meters (e.g., <code>0.2</code>)</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <strong>Task 2: Complete the Line Equation</strong>
+                            <p>In the <code>twist_fn</code> method, complete the parametric line equation:</p>
+                            <p><code>x_target = self.x_start + ...</code> (add the displacement term)</p>
+                        </li>
+
+                        <li>
+                            <strong>Task 3: Find ROS Topics</strong>
+                            <p>Replace the two "TODO" strings with the correct ROS topic names from <code>rostopic list</code>:</p>
+                            <ul>
+                                <li>joint_state_topic</li>
+                                <li>ee_pose_topic</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="reference-values">
+                    <!-- <strong>Reference Values:</strong>
+                    <ul>
+                        <li><strong>Direction:</strong> <code>np.array([0, -1, 0])</code></li>
+                        <li><strong>Length:</strong> <code>0.2</code> meters</li>
+                        <li><strong>Line Equation:</strong> <code>x_target = self.x_start + s * self.direction</code></li>
+                    </ul> -->
+                </div>
+            </div>
+
+            <!-- Challenge 4: Circular Trajectory -->
+            <div class="challenge" id="challenge4">
+                <div class="challenge-header">
+                    <h2>Challenge 4: Circular Trajectory</h2>
+                    <span class="difficulty intermediate">Intermediate</span>
+                </div>
+
+                <div class="description">
+                    <p><strong>File Location:</strong> <span class="file-path">solutions/trajectory_circle_solution.py</span></p>
+                    <p><strong>Estimated Completion Time:</strong> 60-75 minutes</p>
+                </div>
+
+                <h3>What is a Circular Trajectory?</h3>
+
+                <div class="concept-box">
+                    <h4>Fundamental Concept</h4>
+                    <p>A <strong>circular trajectory</strong> makes the robot's end-effector trace a perfect circle in 3D space. The robot continuously moves in a circular path, repeating the motion indefinitely.</p>
+                    <p>The circle is defined by:</p>
+                    <ul>
+                        <li><strong>Center:</strong> The current position when the program starts</li>
+                        <li><strong>Radius:</strong> How big the circle is (default: 0.15 meters)</li>
+                        <li><strong>Plane:</strong> Which 2D plane the circle lies in (YZ, XY, or XZ)</li>
+                        <li><strong>Period:</strong> How long it takes to complete one full circle (default: 10 seconds)</li>
+                    </ul>
+                </div>
+
+                <h3>What Does the Code Do?</h3>
+                <p>The code makes the robot's end-effector trace a circular path continuously in the YZ plane using trigonometric functions.</p>
+
+                <div class="tasks">
+                    <h3>Tasks to Complete</h3>
+                    <ol>
+                        <li>
+                            <strong>Task 1: Find ROS Topics</strong>
+                            <p>Open <code>solutions/trajectory_circle_solution.py</code> and replace the three "TODO" strings with the correct ROS topic names from <code>rostopic list</code>:</p>
+                            <ul>
+                                <li>joint_state_topic</li>
+                                <li>ee_pose_topic</li>
+                                <li>velocity_command_topic</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Note:</strong> The circle parameters (radius, period, plane) are already configured in the code. You can modify them later if you want to experiment.</p>
+                </div>
+
+                <div class="reference-values">
+                    <strong>Reference Values:</strong>
+                    <ul>
+                        <li><strong>Radius:</strong> 0.15 meters</li>
+                        <li><strong>Period:</strong> 10 seconds</li>
+                        <li><strong>Plane:</strong> YZ</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Challenge 5: Pick and Place -->
+            <div class="challenge" id="challenge5">
+                <div class="challenge-header">
+                    <h2>Challenge 5: Pick and Place Operation</h2>
+                    <span class="difficulty advanced">Advanced</span>
+                </div>
+
+                <div class="description">
+                    <p><strong>File Location:</strong> <span class="file-path">reference_solutions/pick_and_place.py</span></p>
+                    <p><strong>Estimated Completion Time:</strong> 120-180 minutes</p>
+                </div>
+
+                <h3>What is Pick and Place?</h3>
+
+                <div class="concept-box">
+                    <h4>Fundamental Concept</h4>
+                    <p><strong>Pick and place</strong> is a complete robotic manipulation task that combines everything you've learned. The robot:</p>
+                    <ol>
+                        <li>Moves to a <strong>home</strong> position (safe starting point)</li>
+                        <li>Opens the gripper</li>
+                        <li>Moves to the <strong>pick</strong> location (where the object is)</li>
+                        <li>Closes the gripper to grasp the object</li>
+                        <li>Moves to the <strong>place</strong> location (where to put the object)</li>
+                        <li>Opens the gripper to release the object</li>
+                        <li>Returns to home position</li>
+                    </ol>
+                    <p>This is one of the most common industrial robot tasks - moving objects from point A to point B.</p>
+                </div>
+
+                <h3>What Does the Code Do?</h3>
+                <p>The code executes a complete pick-and-place sequence: moves to pick location, grasps object, moves to place location, releases object, and returns home.</p>
+
+                <div class="tasks">
+                    <h3>Tasks to Complete</h3>
+                    <ol>
+                        <li>
+                            <strong>Task 1: Fill in End-Effector Poses</strong>
+                            <p>Open <code>reference_solutions/pick_and_place.py</code> and fill in three poses:</p>
+                            <ul>
+                                <li><strong>home_pose:</strong> Safe starting/ending position and orientation</li>
+                                <li><strong>pick_pose:</strong> Where to grasp the object</li>
+                                <li><strong>place_pose:</strong> Where to release the object</li>
+                            </ul>
+                            <p>Each pose has position [x, y, z] and quaternion orientation [qx, qy, qz, qw].</p>
+                        </li>
+
+                        <li>
+                            <strong>Task 2: Find ROS Topics</strong>
+                            <p>Replace the three "TODO" strings with the correct ROS topic names from <code>rostopic list</code>:</p>
+                            <ul>
+                                <li>joint_state_topic</li>
+                                <li>ee_pose_topic</li>
+                                <li>velocity_command_topic</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Note:</strong> The execution sequence (home, gripper operations, pick, place) is already implemented in the code.</p>
+                </div>
+
+                <div class="reference-values">
+                    <strong>Example Reference Values:</strong>
+                    <ul>
+                        <li><strong>Example Home Pose:</strong> Position: <code>[0.30759, 0.00011, 0.48617]</code>, Quaternion: <code>[0.9999914, 0.0041497, 0.0000067, 0.0001789]</code></li>
+                        <li><strong>Example Pick Pose:</strong> Position: <code>[0.56363, -0.20337, 0.13825]</code>, Quaternion: <code>[0.9995628, 0.0281560, -0.0089991, -0.0007491]</code></li>
+                        <li><strong>Example Place Pose:</strong> Position: <code>[0.50728, 0.39376, 0.18852]</code>, Quaternion: <code>[0.9638488, 0.2658571, 0.0025875, 0.0175734]</code></li>
+                    </ul>
+                    <p><strong>Note:</strong> Adjust these values for your specific setup.</p>
+                </div>
+
+                <!-- <h3>Testing Strategy</h3>
+                <div class="step-by-step">
+                    <h5>Recommended Testing Sequence:</h5>
+                    <ol>
+                        <li><strong>Test Gripper Independently:</strong>
+                            <div class="code-block">
+# In Python or separate test script
+from franka_gripper.msg import *
+import actionlib
+
+# Test gripper actions
+gripper.home()
+gripper.open(width=0.08)
+gripper.grasp(width=0.03, force=10.0)
+                            </div> -->
+                        <!-- </li>
+                        <li><strong>Test Individual Poses:</strong>
+                            <p>Create a test script that moves to each pose one at a time:</p>
+                            <div class="code-block">
+# Test home pose
+ctrl.move_to_pose(*home_pose)
+# Verify position is correct, press Ctrl+C when satisfied
+
+# Then test pick pose
+ctrl.move_to_pose(*pick_pose)
+# Verify gripper is positioned correctly over object
+
+# Then test place pose
+ctrl.move_to_pose(*place_pose)
+# Verify placement location is correct
+                            </div>
+                        </li>
+                        <li><strong>Test Pick Sequence:</strong>
+                            <p>Test just the pick operation without the full sequence:</p>
+                            <div class="code-block">
+ctrl.gripper.home()
+ctrl.gripper.open()
+ctrl.move_to_pose(*pick_pose)
+result = ctrl.gripper.grasp()
+print(f"Grasp success: {result}")
+                            </div> -->
+                        <!-- </li>
+                        <li><strong>Test Full Sequence with Light Object:</strong>
+                            <p>Use a lightweight, non-fragile object for initial tests</p>
+                        </li>
+                        <li><strong>Iterate and Refine:</strong>
+                            <p>Adjust poses based on observed behavior</p>
+                        </li>
+                    </ol>
+                </div> -->
+
+                <h3>Execution and Verification</h3>
+                <div class="step-by-step">
+                    <h5>Running the Complete Pick-and-Place:</h5>
+                    <ol>
+                        <li>Place the target object at the pick location</li>
+                        <li>Ensure place location is clear</li>
+                        <li>Verify emergency stop is accessible</li>
+                        <li>Start the script:
+                            <div class="code-block">python3 pick_and_place.py</div>
+                        </li>
+                        <li>Observe the sequence:
+                            <ul>
+                                <li>Gripper homes and opens</li>
+                                <li>Robot moves to pick pose</li>
+                                <li>Gripper closes on object</li>
+                                <li>Robot lifts and moves to place pose</li>
+                                <li>Gripper opens to release</li>
+                                <li>Robot returns to home</li>
+                            </ul>
+                        </li>
+                        <li>Check terminal output for status messages and any errors</li>
+                        <li>Verify object is successfully relocated</li>
+                    </ol>
+                </div>
+
+                <!-- <h3>Common Issues and Solutions</h3>
+                <table>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Possible Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td>Gripper misses object</td>
+                        <td>Pick pose position inaccurate</td>
+                        <td>Remeasure object position, adjust pick pose coordinates</td>
+                    </tr>
+                    <tr>
+                        <td>Grasp fails (object slips)</td>
+                        <td>Insufficient grip force or object too heavy</td>
+                        <td>Increase grasp force parameter, check object weight limits</td>
+                    </tr>
+                    <tr>
+                        <td>Robot stops mid-motion</td>
+                        <td>Target pose unreachable or collision detected</td>
+                        <td>Verify poses are within workspace, check for obstacles</td>
+                    </tr>
+                    <tr>
+                        <td>Object drops during transport</td>
+                        <td>Grip not stable or excessive acceleration</td>
+                        <td>Increase sleep time after grasp, reduce max velocities</td>
+                    </tr>
+                    <tr>
+                        <td>Orientation incorrect at place</td>
+                        <td>Place pose quaternion not aligned properly</td>
+                        <td>Adjust place orientation quaternion</td>
+                    </tr>
+                </table>
+            </div> -->
+
+        </div>
+
+        <footer>
+            <p>Aurora Ignite - FR3 Robotic Arm Control Challenges</p>
+            <p>AB6 ROBOTICS</p>
+            <!-- <p>&copy; 2024 All Rights Reserved</p> -->
+        </footer>
+    </div>
+
+    <script>
+        // Show/Hide Homepage and Challenges
+        function showHome() {
+            document.getElementById('homepage').style.display = 'block';
+            document.getElementById('challenges').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function showChallenge(challengeId) {
+            document.getElementById('homepage').style.display = 'none';
+            document.getElementById('challenges').style.display = 'block';
+
+            // Hide all challenges
+            const challenges = document.querySelectorAll('.challenge');
+            challenges.forEach(c => c.style.display = 'none');
+
+            // Show the selected challenge
+            document.getElementById(challengeId).style.display = 'block';
+
+            window.scrollTo(0, 0);
+        }
+
+        // Copy functionality for code blocks
+        function copyCode(button) {
+            // Find the code block next to the button
+            const codeBlock = button.nextElementSibling;
+            const text = codeBlock.textContent.trim();
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(text).then(() => {
+                // Change button text and style
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                button.textContent = 'Error!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
