@@ -548,34 +548,79 @@
         
 
         <!-- Homepage -->
-        <div id="homepage" class="content" style="text-align: left; padding: 0.20px 35px;">
-            <!-- <div style="margin-bottom: 30px;">
-                <img 
-                    src="/home/samriddhi/Aurora_Ignite/instructions/AB6_logo.jpeg"
-                    alt="AB6 Robotics Logo"
-                    style="height: 120px; width: auto;"
-                >
-            </div> -->
-                        <h2 style="font-size: 2em; color: #2c3e50; margin-bottom: 20px;">FR3 Robotic Arm Control Challenges</h2>
-            <h3 style="font-size: 1.5em; color: #34495e; margin-bottom: 50px;">Comprehensive Manual</h3>
+        <div id="homepage" class="content" style="text-align: center; padding: 60px 40px;">
+            <!-- Hero Section -->
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <h2 style="font-size: 2.8em; color: #1e3c72; margin-bottom: 20px; font-weight: 700; letter-spacing: -0.5px;">
+                    FR3 Robotic Arm Control Challenges
+                </h2>
+                <p style="font-size: 1.4em; color: #5a6c7d; margin-bottom: 40px; font-weight: 300; line-height: 1.6;">
+                    Master robotic manipulation through hands-on challenges in kinematics, trajectory planning, and autonomous operations
+                </p>
 
-            <!-- AB6 Robotics Logo Placeholder -->
-            <!-- <div style="margin: 40px 0;">
-                <p style="font-size: 2.5em; font-weight: bold; color: #1976d2;">AB6 ROBOTICS</p>
-            </div> -->
+                <!-- Feature Highlights -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 50px 0; text-align: left;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px; color: white; box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);">
+                        <h4 style="font-size: 1.3em; margin-bottom: 12px; color: white;">5 Progressive Challenges</h4>
+                        <p style="font-size: 1em; opacity: 0.95; margin: 0;">From beginner kinematics to advanced pick-and-place operations</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 30px; border-radius: 10px; color: white; box-shadow: 0 10px 25px rgba(245, 87, 108, 0.3);">
+                        <h4 style="font-size: 1.3em; margin-bottom: 12px; color: white;">Hands-On Learning</h4>
+                        <p style="font-size: 1em; opacity: 0.95; margin: 0;">Real ROS-based control with the Franka Emika FR3 robotic arm</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 30px; border-radius: 10px; color: white; box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);">
+                        <h4 style="font-size: 1.3em; margin-bottom: 12px; color: white;">Comprehensive Guides</h4>
+                        <p style="font-size: 1em; opacity: 0.95; margin: 0;">Detailed explanations, code examples, and reference solutions</p>
+                    </div>
+                </div>
 
+                <!-- Table of Contents -->
+                <div class="toc" style="max-width: 900px; margin: 70px auto; text-align: left; background: #ffffff; border: 2px solid #e1e8ed; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+                    <h2 style="text-align: center; margin-bottom: 35px; color: #1e3c72; font-size: 2em;">Challenges Overview</h2>
+                    <ol style="font-size: 1.15em; line-height: 2.2; padding-left: 30px;">
+                        <li style="margin: 15px 0;">
+                            <a href="#challenge1" onclick="showChallenge('challenge1')" style="color: #3498db; font-weight: 600; transition: all 0.2s;">
+                                Challenge 1: Forward Kinematics
+                            </a>
+                            <span style="display: inline-block; margin-left: 12px; padding: 4px 12px; background: #4caf50; color: white; border-radius: 12px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Beginner</span>
+                        </li>
+                        <li style="margin: 15px 0;">
+                            <a href="#challenge2" onclick="showChallenge('challenge2')" style="color: #3498db; font-weight: 600; transition: all 0.2s;">
+                                Challenge 2: Inverse Kinematics
+                            </a>
+                            <span style="display: inline-block; margin-left: 12px; padding: 4px 12px; background: #ff9800; color: white; border-radius: 12px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Intermediate</span>
+                        </li>
+                        <li style="margin: 15px 0;">
+                            <a href="#challenge3" onclick="showChallenge('challenge3')" style="color: #3498db; font-weight: 600; transition: all 0.2s;">
+                                Challenge 3: Straight Line Trajectory
+                            </a>
+                            <span style="display: inline-block; margin-left: 12px; padding: 4px 12px; background: #ff9800; color: white; border-radius: 12px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Intermediate</span>
+                        </li>
+                        <li style="margin: 15px 0;">
+                            <a href="#challenge4" onclick="showChallenge('challenge4')" style="color: #3498db; font-weight: 600; transition: all 0.2s;">
+                                Challenge 4: Circular Trajectory
+                            </a>
+                            <span style="display: inline-block; margin-left: 12px; padding: 4px 12px; background: #ff9800; color: white; border-radius: 12px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Intermediate</span>
+                        </li>
+                        <li style="margin: 15px 0;">
+                            <a href="#challenge5" onclick="showChallenge('challenge5')" style="color: #3498db; font-weight: 600; transition: all 0.2s;">
+                                Challenge 5: Pick and Place Operation
+                            </a>
+                            <span style="display: inline-block; margin-left: 12px; padding: 4px 12px; background: #f44336; color: white; border-radius: 12px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Advanced</span>
+                        </li>
+                    </ol>
+                </div>
 
-    
-            <!-- Table of Contents -->
-            <div class="toc" style="max-width: 800px; margin: 60px auto; text-align: left;">
-                <h2 style="text-align: center; margin-bottom: 30px;">Table of Contents</h2>
-                <ol style="font-size: 1.2em; line-height: 2;">
-                    <li><a href="#challenge1" onclick="showChallenge('challenge1')">Challenge 1: Forward Kinematics (Beginner)</a></li>
-                    <li><a href="#challenge2" onclick="showChallenge('challenge2')">Challenge 2: Inverse Kinematics (Intermediate)</a></li>
-                    <li><a href="#challenge3" onclick="showChallenge('challenge3')">Challenge 3: Straight Line Trajectory (Intermediate)</a></li>
-                    <li><a href="#challenge4" onclick="showChallenge('challenge4')">Challenge 4: Circular Trajectory (Intermediate)</a></li>
-                    <li><a href="#challenge5" onclick="showChallenge('challenge5')">Challenge 5: Pick and Place Operation (Advanced)</a></li>
-                </ol>
+                <!-- Call to Action -->
+                <div style="margin-top: 50px; padding: 35px; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); border-radius: 10px; color: white; box-shadow: 0 15px 35px rgba(30, 60, 114, 0.3);">
+                    <h3 style="font-size: 1.8em; margin-bottom: 15px; color: white;">Ready to Begin?</h3>
+                    <p style="font-size: 1.15em; opacity: 0.95; margin-bottom: 25px; line-height: 1.6;">
+                        Start with Challenge 1 to learn the fundamentals, or jump to any challenge that matches your skill level
+                    </p>
+                    <button onclick="showChallenge('challenge1')" style="background: white; color: #1e3c72; padding: 15px 40px; border: none; border-radius: 6px; font-size: 1.1em; font-weight: 600; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s;">
+                        Start Challenge 1 →
+                    </button>
+                </div>
             </div>
         </div>
 <!-- Authors
@@ -614,7 +659,6 @@
 
                 <div class="description">
                     <p><strong>File Location:</strong> <span class="file-path">reference_solutions/forward_kinematics.py</span></p>
-                    <p><strong>Estimated Completion Time:</strong> 45-60 minutes</p>
                 </div>
 
                 <h3>What is Forward Kinematics?</h3>
@@ -764,7 +808,6 @@
 
                 <div class="description">
                     <p><strong>File Location:</strong> <span class="file-path">reference_solutions/inverse_kinematics.py</span></p>
-                    <p><strong>Estimated Completion Time:</strong> 60-90 minutes</p>
                 </div>
 
                 <h3>What is Inverse Kinematics?</h3>
@@ -827,7 +870,6 @@
 
                 <div class="description">
                     <p><strong>File Location:</strong> <span class="file-path">reference_solutions/trajectory_straight_line.py</span></p>
-                    <p><strong>Estimated Completion Time:</strong> 60-75 minutes</p>
                 </div>
 
                 <h3>What is a Straight Line Trajectory?</h3>
@@ -893,7 +935,6 @@
 
                 <div class="description">
                     <p><strong>File Location:</strong> <span class="file-path">solutions/trajectory_circle_solution.py</span></p>
-                    <p><strong>Estimated Completion Time:</strong> 60-75 minutes</p>
                 </div>
 
                 <h3>What is a Circular Trajectory?</h3>
@@ -948,7 +989,6 @@
 
                 <div class="description">
                     <p><strong>File Location:</strong> <span class="file-path">reference_solutions/pick_and_place.py</span></p>
-                    <p><strong>Estimated Completion Time:</strong> 120-180 minutes</p>
                 </div>
 
                 <h3>What is Pick and Place?</h3>
